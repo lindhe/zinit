@@ -1493,7 +1493,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       if [[ -n /lib/*musl*(#qN) ]] && command -v musl-gcc > /dev/null 2>&1; then
         _sys='(linux[\-\_])*~^*(gnu[\-\_\.]|musl[\-\_\.])'
       else
-        _sys='(linux[\-\_])*~^*(gnu[\-\_\.])*~*(musl|android)'
+        _sys='((linux[\-\_])*~^*(gnu|musl)[\-\_\.])*~*(android)'
       fi
       ;;
     (MINGW* | MSYS* | CYGWIN* | Windows_NT)
@@ -1508,8 +1508,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       _cpu='(arm|aarch)64'
       ;;
     (amd64 | i386 | i486 | i686| i786 | x64 | x86 | x86-64 | x86_64)
-      _cpu="(amd64|x86_64|x64)"
-      _sys="(${_sys})*~*(eabi[f])"
+      _cpu="(amd64|x86_64|x64)*~*(eabi[f])"
       ;;
     (armv6l)
       _os=${_os}eabihf
@@ -1533,8 +1532,6 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
   local plugin="$2" urlpart="$3" user="$1"
   local -a bpicks filtered init_list list parts
   parts=(${(@s:;:)$(.zi::get-architecture)})
-  # +zi-log "{m} ${(@)parts}"
-  # +zinit-message "{info}[{pre}gh-r{info}]{rst} filters -> {glob}${(@)parts}{rst}"
   if [[ -z $urlpart ]]; then
     local tag_version=${ICE[ver]}
     if [[ -z $tag_version ]]; then
@@ -1568,7 +1565,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       if (( $#list > 1 )); then
         filtered=( ${(M)list[@]:#(#i)*${~part}*} ) && (( $#filtered > 0 )) && list=( ${filtered[@]} )
         # ${(@)filtered}(e:'l=($REPLY/*.zsh(N)); (( $#l >= 2 ))':)
-        +zinit-message "{info}[{pre}gh-r{info}]{rst} filter -> {glob}${part}{rst}{nl}  - ${(@pj:\n  - :)list[1,2]}{nl}"
+        +zi-log"{i} filter -> {glob}${part}{rst}{nl}  {m} ${(@pj:\n  - :)list[1,2]}"
       else
         break
       fi

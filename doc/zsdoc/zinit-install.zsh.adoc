@@ -59,7 +59,7 @@ Uses feature(s): _source_
 
 ==== .zi::get-architecture
 
-Has 43 line(s). Calls functions:
+Has 44 line(s). Calls functions:
 
  .zi::get-architecture
  `-- zinit.zsh/+zinit-message
@@ -282,9 +282,10 @@ ____
 
 ____
 
-Has 52 line(s). Calls functions:
+Has 54 line(s). Calls functions:
 
  .zinit-get-latest-gh-r-url-part
+ |-- zinit.zsh/+zi-log
  `-- zinit.zsh/+zinit-message
 
 Uses feature(s): _setopt_
@@ -481,6 +482,7 @@ Has 214 line(s). Calls functions:
  |   |   `-- zinit.zsh/+zinit-message
  |   `-- zinit.zsh/+zinit-message
  |-- .zinit-get-latest-gh-r-url-part
+ |   |-- zinit.zsh/+zi-log
  |   `-- zinit.zsh/+zinit-message
  |-- .zinit-install-completions
  |   |-- .zinit-compinit

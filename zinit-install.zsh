@@ -1565,7 +1565,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       if (( $#list > 1 )); then
         filtered=( ${(M)list[@]:#(#i)*${~part}*} ) && (( $#filtered > 0 )) && list=( ${filtered[@]} )
         # ${(@)filtered}(e:'l=($REPLY/*.zsh(N)); (( $#l >= 2 ))':)
-        +zi-log"{i} filter -> {glob}${part}{rst}{nl}  {m} ${(@pj:\n  - :)list[1,2]}"
+        +zi-log "{i} filter -> {glob}${part}{rst}{nl}  {m} ${(@pj:\n  - :)list[1,2]}"
       else
         break
       fi

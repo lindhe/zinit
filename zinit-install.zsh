@@ -1493,7 +1493,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       if [[ -n /lib/*musl*(#qN) ]] && command -v musl-gcc > /dev/null 2>&1; then
         _sys='(linux[\-\_])*~^*(gnu[\-\_\.]|musl[\-\_\.])'
       else
-        _sys='(linux[\-\_])*~*(musl|android)'
+        _sys='((linux[\-\_])*~^*(gnu[\-\_\.]))*~*(musl|android)'
       fi
       ;;
     (MINGW* | MSYS* | CYGWIN* | Windows_NT)
@@ -1508,8 +1508,8 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       _cpu='(arm|aarch)64'
       ;;
     (amd64 | i386 | i486 | i686| i786 | x64 | x86 | x86-64 | x86_64)
-      _cpu="(amd64|x86_64|x64)*~^*(${_sys}|)"
-      _sys="(${_sys})*~*(eabi[f]|)"
+      _cpu="${_sys}*~^*(amd64|x86_64|x64)"
+      _sys="${_sys}*~*(eabi[f])"
       ;;
     (armv6l)
       _os=${_os}eabihf
@@ -1521,7 +1521,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
       +zinit-message "{info}[{pre}ziextract{info}]{error} Unsupported CPU: {obj}$_cpu{rst}"
       ;;
   esac
-  print -- "${os};${_sys};${_cpu};${_os}"
+  print -- "${sys};${os};${_sys};${_cpu};${_os}"
 } # ]]]
 # FUNCTION: .zinit-get-latest-gh-r-url-part [[[
 # Gets version string of latest release of given Github
@@ -1533,7 +1533,7 @@ builtin source "${ZINIT[BIN_DIR]}/zinit-side.zsh" || {
   local plugin="$2" urlpart="$3" user="$1"
   local -a bpicks filtered init_list list parts
   parts=(${(@s:;:)$(.zi::get-architecture)})
-  +zi-log "{m} ${(@)parts}"
+  # +zi-log "{m} ${(@)parts}"
   # +zinit-message "{info}[{pre}gh-r{info}]{rst} filters -> {glob}${(@)parts}{rst}"
   if [[ -z $urlpart ]]; then
     local tag_version=${ICE[ver]}

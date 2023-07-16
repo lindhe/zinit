@@ -138,7 +138,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 ```
 
-[compinit](http://zsh.sourceforge.net/Doc/Release/Completion-System.html#Initialization)):
+[compinit](http://zsh.sourceforge.net/Doc/Release/Completion-System.html#Initialization):
 
 If you source `zinit.zsh` after `compinit`, add the following snippet after sourcing `zinit.zsh`:
 
